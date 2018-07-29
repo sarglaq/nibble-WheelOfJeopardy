@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WheelOfJeopardy</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="welcome">Welcome to Wheel of Jeopardy! Start a game when you are ready!</string>
+</resources>
