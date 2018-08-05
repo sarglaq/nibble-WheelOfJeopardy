@@ -7,6 +7,12 @@ public class Player {
 	private Score totalScore;
 	private int freeSpins;
 
+	public Player(String name, int id)
+    {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
