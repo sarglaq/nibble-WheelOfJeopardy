@@ -1,9 +1,10 @@
 package com.nibble.wheelofjeopardy.game;
 
+import com.nibble.wheelofjeopardy.questionBoard.Category;
+import com.nibble.wheelofjeopardy.wheel.Sector;
 import com.nibble.wheelofjeopardy.wheel.Wheel;
 import com.nibble.wheelofjeopardy.questionBank.Question;
 import java.util.Queue;
-import java.util.LinkedList;
 
 public class Game {
 
@@ -68,18 +69,35 @@ public class Game {
 	 * this should be under player's function? YC
 	 * @return
 	 */
-	public int spinWheel(){
-	    // todo
-        return 0;
+	public Sector spinWheel(){
+        wheel.spin();
+        return wheel.get_State();
     }
 	
-	public Question getQuestion(int row, int column){
+	public Question getQuestion(Category category){
 	    // todo
+
+		/*
+		 * The question that needs to be answered needs to be retrieved and stored in currentQuestion.
+		 * This should mostly be a pass through to the question board getQuestion method. Something
+		 * like:
+		 * currentQuestion = questionBoard.getQuestion(category);
+		 *
+		 * The QuesitonBoard class hasn't been added yet. That needs to be filled. I'm not sure if
+		 * there was a jeopardy program that we were going to use for this or not.
+		 */
         return null;
     }
 	
 	public void answerQuestion(boolean correct){
 	    // todo;
+
+        /*
+         * This function should get the value from currentQuestion and apply that many points
+         * to currentPlayer's score. If correct is true, it should apply positive points, if
+         * correct is false it should apply negative points. It should then clear currentQuestion
+         * (set it to null) as once answered the questions should be cleared.
+         */
     }
 
 
@@ -101,5 +119,13 @@ public class Game {
 		}
         return scores;
 	}
+
+	public void endTurn(boolean changePlayer) {
+	    // todo
+        /*
+         * if changePlayer is true, end this turn and start the next turn for the other player
+         * if changePlayer is false, end this turn and start the next turn for the current player
+         */
+    }
 	
 }

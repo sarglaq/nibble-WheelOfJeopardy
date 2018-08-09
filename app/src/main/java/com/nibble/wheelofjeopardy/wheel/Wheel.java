@@ -68,45 +68,46 @@ public class Wheel {
 	 */
 	
 	
-	public String get_State() {
-		String money = "";
+	public Sector get_State() {
+		Sector money;
 		
 		switch (position) {
 		case 0:
-			money = "Sector 1";
+			money = Sector.CATEGORY_ONE;
 			break;
 		case 1:
-			money = "Sector 2";
+			money = Sector.CATEGORY_TWO;
 			break;
 		case 2:
-			money = "Sector 3";
+			money = Sector.CATEGORY_THREE;
 			break;
 		case 3:
-			money = "Sector 4";
+			money = Sector.CATEGORY_FOUR;
 			break;
 		case 4:
-			money = "Sector 5";
+			money = Sector.CATEGORY_FIVE;
 			break;
 		case 5:
-			money = "Sector 6";
+			money = Sector.CATEGORY_SIX;
 			break;
 		case 6:
-			money = "BANKRUPT";
+			money = Sector.BANKRUPT;
 			break;
 		case 7:
-			money = "LOSE_A_TURN";
+			money = Sector.LOOSE_TURN;
 			break;
 		case 8:
-			money = "FREE_TURN";
+			money = Sector.FREE_SPIN;
 			break;
 		case 9:
-			money = "PLAYERS_CHOICE";
+			money = Sector.PLAYERS_CHOICE;
 			break;
 		case 10:
-			money = "OPPONENTS_CHOICE";
+			money = Sector.OPONENTS_CHOICE;
 			break;
 		case 11:
-			money = "DOUBLE_YOUR_SCORE";
+		default:
+			money = Sector.DOUBLE_SCORE;
 			break;
 		}
 		return money;

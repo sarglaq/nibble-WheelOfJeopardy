@@ -4,4 +4,30 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="welcome">Welcome to Wheel of Jeopardy! Start a game when you are ready!</string>
+    <string name="title_activity_wheel">WheelActivity</string>
+
+    <string name="num_players">Number of Players:</string>
+    <string name="one_player">One</string>
+    <string name="two_players">Two</string>
+
+    <string name="choose_categories">Select which question groups to use for each category on the question board.</string>
+    <string name="category_1">Category 1</string>
+    <string name="category_2">Category 2</string>
+    <string name="category_3">Category 3</string>
+    <string name="category_4">Category 4</string>
+    <string name="category_5">Category 5</string>
+    <string name="category_6">Category 6</string>
+
+    <string name="players_choice">Pick the category you want to anwers a question from.</string>
+    <string name="opponents_choice">Have your oppenet pick the category for you!</string>
+
+    <!-- Misc Buttons -->
+    <string name="start_game_button">Start Game</string>
+    <string name="spin_wheel_button">Spin Wheel</string>
+    <string name="Show_answer_button">Show Answer</string>
+    <string name="correct_button">Correct</string>
+    <string name="wrong_button">Wrong</string>
+    <string name="title_activity_question_board">QuestionBoardActivity</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
 </resources>
