@@ -39,10 +39,6 @@ public class Wheel {
 	/**
 	 * Constructs a wheel using a default instance of Random.
 	 */
-	
-	int spincount = 0;
-	
-	
 	public Wheel() {
 		generator = new Random();
 		position = BANKRUPT;
@@ -68,48 +64,49 @@ public class Wheel {
 	 */
 	
 	
-	public String get_State() {
-		String money = "";
+	public Sector get_State() {
+		Sector sector;
 		
 		switch (position) {
 		case 0:
-			money = "Sector 1";
+			sector = Sector.CATEGORY_ONE;
 			break;
 		case 1:
-			money = "Sector 2";
+			sector = Sector.CATEGORY_TWO;
 			break;
 		case 2:
-			money = "Sector 3";
+			sector = Sector.CATEGORY_THREE;
 			break;
 		case 3:
-			money = "Sector 4";
+			sector = Sector.CATEGORY_FOUR;
 			break;
 		case 4:
-			money = "Sector 5";
+			sector = Sector.CATEGORY_FIVE;
 			break;
 		case 5:
-			money = "Sector 6";
+			sector = Sector.CATEGORY_SIX;
 			break;
 		case 6:
-			money = "BANKRUPT";
+			sector = Sector.BANKRUPT;
 			break;
 		case 7:
-			money = "LOSE_A_TURN";
+			sector = Sector.LOOSE_TURN;
 			break;
 		case 8:
-			money = "FREE_TURN";
+			sector = Sector.FREE_SPIN;
 			break;
 		case 9:
-			money = "PLAYERS_CHOICE";
+			sector = Sector.PLAYERS_CHOICE;
 			break;
 		case 10:
-			money = "OPPONENTS_CHOICE";
+			sector = Sector.OPPONENTS_CHOICE;
 			break;
 		case 11:
-			money = "DOUBLE_YOUR_SCORE";
+		default:
+			sector = Sector.DOUBLE_SCORE;
 			break;
 		}
-		return money;
+		return sector;
 	}
 	
 	
@@ -130,5 +127,12 @@ public class Wheel {
 		
 	}
 	
-			
+	public int getSpinCount() {
+		return COUNTER;
+	}
+
+	public void reset() {
+	    COUNTER = 0;
+	    position = BANKRUPT;
+    }
 }

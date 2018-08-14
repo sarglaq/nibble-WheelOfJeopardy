@@ -4,4 +4,41 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="welcome">Welcome to Wheel of Jeopardy! Start a game when you are ready!</string>
+    <string name="title_activity_wheel">WheelActivity</string>
+
+    <string name="num_players">Number of Players:</string>
+    <string name="one_player">One</string>
+    <string name="two_players">Two</string>
+
+    <string name="choose_categories">Select which question groups to use for each category on the question board.</string>
+    <string name="category_1">Category 1</string>
+    <string name="category_2">Category 2</string>
+    <string name="category_3">Category 3</string>
+    <string name="category_4">Category 4</string>
+    <string name="category_5">Category 5</string>
+    <string name="category_6">Category 6</string>
+
+    <string name="players_choice">Pick the category you want to anwers a question from.</string>
+    <string name="opponents_choice">Have your oppenet pick the category for you!</string>
+
+    <string name="question_label">Question:</string>
+    <string name="answer_label">Answer:</string>
+    <string name="user_answer_label">Your Answer:</string>
+    <string name="is_answer_correct">Did you get the answer correct?</string>
+
+    <string name="game_over">The game is over!</string>
+    <string name="player_scores">Player Scores:</string>
+    <string name="want_a_new_game">Do you want to start another game?</string>
+
+    <!-- Misc Buttons -->
+    <string name="new_game_button">New Game</string>
+    <string name="start_game_button">Start Game</string>
+    <string name="spin_wheel_button">Spin Wheel</string>
+    <string name="show_answer_button">Show Answer</string>
+    <string name="correct_button">Correct</string>
+    <string name="wrong_button">Wrong</string>
+    <string name="title_activity_question_board">QuestionBoardActivity</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
+    <string name="title_activity_answer">AnswerActivity</string>
 </resources>
