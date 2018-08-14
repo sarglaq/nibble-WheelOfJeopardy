@@ -16,19 +16,23 @@ public class UseTokenDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         StringBuilder messageBuilder = new StringBuilder();
         messageBuilder.append("You have ");
-        messageBuilder.append(GameManager.getInstance().getGame().getCurrentPlayer().getFreeSpins());
+        messageBuilder.append(GameManager.getGame().getCurrentPlayer().getFreeSpins());
         messageBuilder.append(" tokens, would you like to use one and take another turn?");
         dialogBuilder.setMessage(messageBuilder.toString());
         dialogBuilder.setPositiveButton(R.string.yes_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                GameManager.getInstance().getGame().endTurn(false);
+                if (getActivity() instanceof WheelActivity) {
+                    ((WheelActivity) getActivity()).endTurn(false);
+                }
             }
         });
-        dialogBuilder.setPositiveButton(R.string.no_button, new DialogInterface.OnClickListener() {
+        dialogBuilder.setNegativeButton(R.string.no_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                GameManager.getInstance().getGame().endTurn(true);
+                if (getActivity() instanceof WheelActivity) {
+                    ((WheelActivity) getActivity()).endTurn(true);
+                }
             }
         });
         return dialogBuilder.create();

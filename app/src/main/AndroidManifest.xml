@@ -23,9 +23,14 @@
             android:label="@string/title_activity_wheel"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.QuestionBoardActivity"
+            android:name=".ui.QuestionActivity"
             android:label="@string/title_activity_question_board"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.AnswerActivity"
+            android:label="@string/title_activity_answer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.GameOverActivity"></activity>
     </application>
 
 </manifest>

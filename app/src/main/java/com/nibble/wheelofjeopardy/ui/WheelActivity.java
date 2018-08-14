@@ -21,11 +21,16 @@ public class WheelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* The Wheel Activity is the beginning of each turn. Therefore, it is the best place
+         * to check if the game is over or not and act accordingly.
+         */
+
         setContentView(R.layout.activity_wheel);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mCurrentGame = GameManager.getInstance().getGame();
+        mCurrentGame = GameManager.getGame();
 
         Button startGameButton = (Button) findViewById(R.id.spin_wheel_button);
         startGameButton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +74,7 @@ public class WheelActivity extends AppCompatActivity {
                 playerChooseCategoryDialog.setPlayersChoice(true);
                 playerChooseCategoryDialog.show(getSupportFragmentManager(), "PlayerChoosingCategory");
                 break;
-            case OPONENTS_CHOICE:
+            case OPPONENTS_CHOICE:
                 ChooseCategoryDialog opponentChooseCategoryDialog = new ChooseCategoryDialog();
                 opponentChooseCategoryDialog.setPlayersChoice(false);
                 opponentChooseCategoryDialog.show(getSupportFragmentManager(), "OpponentChoosingCategory");
@@ -81,13 +86,13 @@ public class WheelActivity extends AppCompatActivity {
                 messageBuilder.append(mCurrentGame.getCurrentPlayer().getFreeSpins());
                 messageBuilder.append(" Free Spin tokens to use.");
                 wheelMessage.setText(messageBuilder.toString());
-                mCurrentGame.endTurn(false);
+                endTurn(false);
                 break;
             case LOOSE_TURN:
                 int freeSpins = mCurrentGame.getCurrentPlayer().getFreeSpins();
                 wheelMessage.setText("Oh teh nose! You lost your turn!");
                 if (freeSpins <= 0) {
-                    mCurrentGame.endTurn(true);
+                    endTurn(true);
                 }
                 UseTokenDialog askUseToken = new UseTokenDialog();
                 askUseToken.show(getSupportFragmentManager(), "AskToUseTokenDialog");
@@ -95,19 +100,31 @@ public class WheelActivity extends AppCompatActivity {
             case BANKRUPT:
                 mCurrentGame.getCurrentPlayer().getRoundScore().bankruptScore();
                 wheelMessage.setText("Oh teh nose! You've been bankrupt!");
-                mCurrentGame.endTurn(true);
+                endTurn(true);
                 break;
             case DOUBLE_SCORE:
                 mCurrentGame.getCurrentPlayer().getRoundScore().doubleScore();
                 wheelMessage.setText("Your score just doubled! Sweet!");
-                mCurrentGame.endTurn(false);
+                endTurn(false);
                 break;
         }
     }
 
+    public void endTurn(boolean changePlayer) {
+        mCurrentGame.endTurn(changePlayer);
+        checkIfGameIsOver();
+    }
+
+    public void checkIfGameIsOver() {
+        if (mCurrentGame.isGameOver()) {
+            Intent showEndGame = new Intent(this, GameOverActivity.class);
+            startActivity(showEndGame);
+        }
+    }
+
     public void askQuesiton(Category category) {
-        Intent askQuesiton = new Intent(this, QuestionBoardActivity.class);
-        askQuesiton.getExtras().putString("category", category.getName());
+        mCurrentGame.loadQuestion(category);
+        Intent askQuesiton = new Intent(this, QuestionActivity.class);
         startActivity(askQuesiton);
     }
 }

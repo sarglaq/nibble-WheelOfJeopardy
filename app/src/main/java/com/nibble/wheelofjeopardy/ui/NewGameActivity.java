@@ -33,7 +33,7 @@ public class NewGameActivity extends AppCompatActivity {
         int radioButtonID = playerSelection.getCheckedRadioButtonId();
         int numPlayers = radioButtonID == R.id.radio_one_player ? 1:2;
         Game newGame = new Game(numPlayers, 0);
-        GameManager.getInstance().newGame(newGame);
+        GameManager.newGame(newGame);
         Intent wheelIntent = new Intent(this, WheelActivity.class);
         startActivity(wheelIntent);
     }

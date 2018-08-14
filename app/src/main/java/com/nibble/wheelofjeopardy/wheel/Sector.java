@@ -8,7 +8,7 @@ public enum Sector {
     CATEGORY_FIVE,
     CATEGORY_SIX,
     PLAYERS_CHOICE,
-    OPONENTS_CHOICE,
+    OPPONENTS_CHOICE,
     LOOSE_TURN,
     FREE_SPIN,
     BANKRUPT,
