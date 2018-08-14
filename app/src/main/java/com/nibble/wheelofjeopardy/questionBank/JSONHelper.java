@@ -1,5 +1,4 @@
 package com.nibble.wheelofjeopardy.questionBank;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 
 
 public class JSONHelper
@@ -27,17 +27,28 @@ public class JSONHelper
      * @throws IOException
      * @throws FileNotFoundException
      */
+    private static JSONObject jsonobj;
+    private static JSONArray questionList;
+    private static String path;
 
-    /**
-     * main method to test functions read and write answers
-     * @param args
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws ParseException
-     */
+    public JSONHelper(int id)
+    {
+        this.path = id+".json";
+    }
+
+    public JSONHelper()
+    {
+
+    }
+
+    public void getID(int i) throws FileNotFoundException, IOException, ParseException
+    {
+        path = i+".json";
+    }
+
     public static void main(String[] args) throws FileNotFoundException, IOException, ParseException
     {
-        String path = "test.json";
+        int id = 1;
         String type = "type1";
         String type2 = "type2";
         String[] q1 = new String[] {"q1","a1"};
@@ -46,13 +57,17 @@ public class JSONHelper
         String[] q4 = new String[] {"q4","a4"};
         String[] q5 = new String[] {"q5","a5"};
         //writeQuestionBank(path, type, q1, q2, q3, q4, q5);
-        writeQuestionBank(path, type2, q1, q2, q3, q4, q5);
-        System.out.println(readQuestion(path, 2));
-        System.out.println(readQuestion(path, 3));
-        System.out.println(readAnswer(path, 2));
+        writeQuestionGroup(id, type, q1, q2, q3, q4, q5);
+        System.out.println(readQuestion(2));
+        System.out.println(readQuestion(5));
+        System.out.println(readAnswer(2));
+        writeAnswer(2, "newAnswer");
+        System.out.println(readAnswer(5));
+        setType("newType");
+        System.out.println(getType());
     }
-    public static void writeQuestionBank(
-            String path,
+    public static void writeQuestionGroup(
+            int id,
             String type,
             String[] q1,
             String[] q2,
@@ -61,9 +76,10 @@ public class JSONHelper
             String[] q5
     )
     {
-        JSONObject obj = new JSONObject();
-        obj.put("type", type);
-        JSONArray questionList = new JSONArray();
+        path = id+".json";
+        jsonobj = new JSONObject();
+        jsonobj.put("type", type);
+        questionList = new JSONArray();
         questionList.add(0, q1[0]);
         questionList.add(1, q2[0]);
         questionList.add(2, q3[0]);
@@ -74,8 +90,74 @@ public class JSONHelper
         questionList.add(7, q3[1]);
         questionList.add(8, q4[1]);
         questionList.add(9, q5[1]);
-        obj.put("questions", questionList);
+        jsonobj.put("questions", questionList);
 
+        try(FileWriter file = new FileWriter(path))
+        {
+            file.write(jsonobj.toString());
+            file.flush();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+        //System.out.println(jsonobj);
+    }
+
+    public static void writeAnswer(int number, String newAnswer) throws FileNotFoundException, IOException, ParseException
+    {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(path));
+        jsonobj = (JSONObject) obj;
+        questionList = (JSONArray) jsonobj.get("questions");
+        questionList.set(number-1+5, newAnswer);
+        jsonobj.put("questions", questionList);
+        try(FileWriter file = new FileWriter(path))
+        {
+            file.write(obj.toString());
+            file.flush();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+        //System.out.println(obj);
+        //JSONArray questionLists
+    }
+
+    public static String getType() throws FileNotFoundException, IOException, ParseException
+    {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(path));
+        jsonobj = (JSONObject) obj;
+        return (String) jsonobj.get("type");
+    }
+
+    public static void setType(String newType) throws FileNotFoundException, IOException, ParseException
+    {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(path));
+        jsonobj = (JSONObject) obj;
+        jsonobj.put("type", newType);
+        try(FileWriter file = new FileWriter(path))
+        {
+            file.write(obj.toString());
+            file.flush();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeQuestion(int number, String newQuestion) throws FileNotFoundException, IOException, ParseException
+    {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(path));
+        jsonobj = (JSONObject) obj;
+        questionList = (JSONArray) jsonobj.get("questions");
+        questionList.set(number-1, newQuestion);
+        jsonobj.put("questions", questionList);
         try(FileWriter file = new FileWriter(path))
         {
             file.write(obj.toString());
@@ -86,15 +168,16 @@ public class JSONHelper
             e.printStackTrace();
         }
         System.out.println(obj);
+        //JSONArray questionLists
     }
 
-    public static String readQuestion(String path, int number) throws FileNotFoundException, IOException, ParseException
+    public static String readQuestion(int number) throws IOException, ParseException
     {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(path));
-        JSONObject jsonobj = (JSONObject) obj;
-        JSONArray questionLists = (JSONArray) jsonobj.get("questions");
-        return questionLists.get(number-1).toString();
+        jsonobj = (JSONObject) obj;
+        questionList = (JSONArray) jsonobj.get("questions");
+        return questionList.get(number-1).toString();
         /**
          JSONObject obj = new JSONObject(path);
          JSONArray questionLists = obj.getJSONArray("questions");
@@ -102,13 +185,13 @@ public class JSONHelper
          **/
     }
 
-    public static String readAnswer(String path, int number) throws FileNotFoundException, IOException, ParseException
+    public static String readAnswer(int number) throws IOException, ParseException
     {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(path));
-        JSONObject jsonobj = (JSONObject) obj;
-        JSONArray questionLists = (JSONArray) jsonobj.get("questions");
-        return questionLists.get(number-1).toString();
+        jsonobj = (JSONObject) obj;
+        questionList = (JSONArray) jsonobj.get("questions");
+        return questionList.get(number-1+5).toString();
     }
 
 }

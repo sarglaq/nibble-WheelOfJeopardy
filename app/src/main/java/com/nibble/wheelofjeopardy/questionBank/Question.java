@@ -6,17 +6,20 @@ public class Question {
 	private int id;
 	private String question;
 	private String answer;
-	private URI image;
-	private URI sound;
-	private URI video;
+	/**
+	 private URI image;
+	 private URI sound;
+	 private URI video;
+	 **/
 
-	public Question(String question, String answer, URI image, URI sound, URI video){
-        this.question = question;
-        this.answer = answer;
-        this.image = image;
-        this.sound = sound;
-        this.video = video;
-    }
+	public Question(int id, String question, String answer){//}, URI image, URI sound, URI video){
+		this.id = id;
+		this.question = question;
+		this.answer = answer;
+		//this.image = image;
+		//this.sound = sound;
+		//this.video = video;
+	}
 
 	public String getQuestion() {
 		return question;
@@ -34,27 +37,29 @@ public class Question {
 		this.answer = answer;
 	}
 
-	public URI getImage() {
-		return image;
-	}
+	/**
+	 public URI getImage() {
+	 return image;
+	 }
 
-	public void setImage(URI image) {
-		this.image = image;
-	}
+	 public void setImage(URI image) {
+	 this.image = image;
+	 }
 
-	public URI getSound() {
-		return sound;
-	}
+	 public URI getSound() {
+	 return sound;
+	 }
 
-	public void setSound(URI sound) {
-		this.sound = sound;
-	}
+	 public void setSound(URI sound) {
+	 this.sound = sound;
+	 }
 
-	public URI getVideo() {
-		return video;
-	}
+	 public URI getVideo() {
+	 return video;
+	 }
 
-	public void setVideo(URI video) {
-		this.video = video;
-	}
+	 public void setVideo(URI video) {
+	 this.video = video;
+	 }
+	 **/
 }
