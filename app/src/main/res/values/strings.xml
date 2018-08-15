@@ -5,18 +5,25 @@
     <string name="title_notifications">Notifications</string>
     <string name="welcome">Welcome to Wheel of Jeopardy! Start a game when you are ready!</string>
     <string name="title_activity_wheel">WheelActivity</string>
+    <string name="wheel_greeting">Sping the wheel and take your turn!</string>
 
     <string name="num_players">Number of Players:</string>
     <string name="one_player">One</string>
     <string name="two_players">Two</string>
 
     <string name="choose_categories">Select which question groups to use for each category on the question board.</string>
-    <string name="category_1">Category 1</string>
-    <string name="category_2">Category 2</string>
-    <string name="category_3">Category 3</string>
-    <string name="category_4">Category 4</string>
-    <string name="category_5">Category 5</string>
-    <string name="category_6">Category 6</string>
+    <string name="category_1">Category 1:</string>
+    <string name="category_2">Category 2:</string>
+    <string name="category_3">Category 3:</string>
+    <string name="category_4">Category 4:</string>
+    <string name="category_5">Category 5:</string>
+    <string name="category_6">Category 6:</string>
+
+    <string name="current_round">Current Round:</string>
+    <string name="current_player">Current Player:</string>
+    <string name="score">Score:</string>
+    <string name="remaining_spins">Remaining Spins:</string>
+    <string name="remaining_questions">Remaining Questions:</string>
 
     <string name="players_choice">Pick the category you want to anwers a question from.</string>
     <string name="opponents_choice">Have your oppenet pick the category for you!</string>

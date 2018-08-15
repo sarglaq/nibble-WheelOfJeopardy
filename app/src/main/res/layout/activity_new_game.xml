@@ -1,88 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.NewGameActivity">
 
     <TextView
-        android:id="@+id/welcome"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/welcome"/>
 
     <TextView
-        android:id="@+id/text_num_players"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/num_players"/>
 
     <RadioGroup
         android:id="@+id/selectPlayers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-            <RadioButton
-                android:id="@+id/radio_one_player"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/one_player"/>
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radio_one_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/one_player"
+            android:checked="true"/>
+
         <RadioButton
             android:id="@+id/radio_two_players"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/two_players"/>
     </RadioGroup>
 
     <TextView
-        android:id="@+id/text_choose_categories"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/choose_categories"/>
 
-    <Spinner
+    <RelativeLayout
         android:id="@+id/category_one"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/category_1"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/category_1"/>
+
+        <Spinner
+            android:id="@+id/category_one_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/category_two"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/category_2"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/category_2"/>
+
+        <Spinner
+            android:id="@+id/category_two_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/category_three"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/category_3"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/category_3"/>
+
+        <Spinner
+            android:id="@+id/category_three_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/category_four"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/category_4"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/category_4"/>
+
+        <Spinner
+            android:id="@+id/category_four_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/category_five"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/category_5"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Spinner
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/category_5"/>
+
+        <Spinner
+            android:id="@+id/category_five_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/category_six"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/category_6"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/category_6"/>
+
+        <Spinner
+            android:id="@+id/category_six_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/start_game_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/start_game_button"/>
 
-</android.support.v7.widget.LinearLayoutCompat>
+</LinearLayout>

@@ -23,12 +23,12 @@ public class ChooseCategoryDialog extends DialogFragment {
         dialogBuilder.setTitle(playersChoice ? R.string.players_choice:R.string.opponents_choice);
 
         final String[] categories = {
-                Category.CATEGORY_ONE.name(),
-                Category.CATEGORY_TWO.name(),
-                Category.CATEGORY_THREE.name(),
-                Category.CATEGORY_FOUR.name(),
-                Category.CATEGORY_FIVE.name(),
-                Category.CATEGORY_SIX.name()
+                Category.CATEGORY_ONE.getName(),
+                Category.CATEGORY_TWO.getName(),
+                Category.CATEGORY_THREE.getName(),
+                Category.CATEGORY_FOUR.getName(),
+                Category.CATEGORY_FIVE.getName(),
+                Category.CATEGORY_SIX.getName(),
         };
 
         dialogBuilder.setItems(categories, new DialogInterface.OnClickListener() {
@@ -36,27 +36,28 @@ public class ChooseCategoryDialog extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Category selectedCategory;
                 switch (i) {
-                    case 1:
+                    case 0:
                         selectedCategory = Category.CATEGORY_ONE;
                         break;
-                    case 2:
+                    case 1:
                         selectedCategory = Category.CATEGORY_TWO;
                         break;
-                    case 3:
+                    case 2:
                         selectedCategory = Category.CATEGORY_THREE;
                         break;
-                    case 4:
+                    case 3:
                         selectedCategory = Category.CATEGORY_FOUR;
                         break;
-                    case 5:
+                    case 4:
                         selectedCategory = Category.CATEGORY_FIVE;
                         break;
-                    case 6:
+                    case 5:
                     default:
                         selectedCategory = Category.CATEGORY_SIX;
                         break;
                 }
                 if (getActivity() instanceof WheelActivity) {
+                    System.out.println("Selected " + selectedCategory.name());
                     ((WheelActivity) getActivity()).askQuesiton(selectedCategory);
                 }
             }

@@ -20,10 +20,8 @@ public class AnswerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        CharSequence usersTextAnswer = savedInstanceState.getCharSequence("USER_ANSWER");
+        CharSequence usersTextAnswer = this.getIntent().getCharSequenceExtra("USER_ANSWER");
         TextView usersAnswer = (TextView) findViewById(R.id.user_answer);
         if (usersTextAnswer != null && usersTextAnswer.length() != 0) {
             usersAnswer.setText(usersTextAnswer);

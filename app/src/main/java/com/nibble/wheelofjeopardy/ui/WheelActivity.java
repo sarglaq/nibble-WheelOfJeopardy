@@ -3,7 +3,6 @@ package com.nibble.wheelofjeopardy.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,16 +20,14 @@ public class WheelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /* The Wheel Activity is the beginning of each turn. Therefore, it is the best place
-         * to check if the game is over or not and act accordingly.
-         */
-
         setContentView(R.layout.activity_wheel);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         mCurrentGame = GameManager.getGame();
+
+        TextView wheelMessage = (TextView) findViewById(R.id.wheel_message);
+        wheelMessage.setText(R.string.wheel_greeting);
+
+        updateUiInfo();
 
         Button startGameButton = (Button) findViewById(R.id.spin_wheel_button);
         startGameButton.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +36,28 @@ public class WheelActivity extends AppCompatActivity {
                 spinWheel();
             }
         });
+    }
+
+    private void updateUiInfo() {
+        System.out.println("Updating UI info");
+
+        TextView round = (TextView) findViewById(R.id.current_round);
+        round.setText(mCurrentGame.getCurrentRound().getName());
+
+        TextView player = (TextView) findViewById(R.id.player_name);
+        player.setText(mCurrentGame.getCurrentPlayer().getName());
+
+        TextView score = (TextView) findViewById(R.id.score);
+        String scoreAsString = "" + mCurrentGame.getCurrentPlayer().getRoundScore().getScore();
+        score.setText(scoreAsString);
+
+        TextView spins = (TextView) findViewById(R.id.remaining_spins);
+        String spinsAsString = "" + mCurrentGame.getRemainingSpins();
+        score.setText(spinsAsString);
+
+        TextView questions = (TextView) findViewById(R.id.remaining_questions);
+        String questionsAsString = "" + mCurrentGame.getRemainingQuestions();
+        score.setText(questionsAsString);
     }
 
     private void spinWheel() {
@@ -50,6 +69,7 @@ public class WheelActivity extends AppCompatActivity {
         TextView wheelMessage = (TextView) findViewById(R.id.wheel_message);
 
         Sector state = mCurrentGame.spinWheel();
+        System.out.println("Just spun " + state);
         switch (state) {
             case CATEGORY_ONE:
                 askQuesiton(Category.CATEGORY_ONE);
@@ -80,7 +100,6 @@ public class WheelActivity extends AppCompatActivity {
                 opponentChooseCategoryDialog.show(getSupportFragmentManager(), "OpponentChoosingCategory");
                 break;
             case FREE_SPIN:
-                mCurrentGame.getCurrentPlayer().awardFreeSpin();
                 StringBuilder messageBuilder = new StringBuilder();
                 messageBuilder.append("You got a Free Spin token! You now have ");
                 messageBuilder.append(mCurrentGame.getCurrentPlayer().getFreeSpins());
@@ -91,7 +110,7 @@ public class WheelActivity extends AppCompatActivity {
             case LOOSE_TURN:
                 int freeSpins = mCurrentGame.getCurrentPlayer().getFreeSpins();
                 wheelMessage.setText("Oh teh nose! You lost your turn!");
-                if (freeSpins <= 0) {
+                if (freeSpins < 0) {
                     endTurn(true);
                 }
                 UseTokenDialog askUseToken = new UseTokenDialog();
@@ -112,11 +131,12 @@ public class WheelActivity extends AppCompatActivity {
 
     public void endTurn(boolean changePlayer) {
         mCurrentGame.endTurn(changePlayer);
+        updateUiInfo();
         checkIfGameIsOver();
     }
 
     public void checkIfGameIsOver() {
-        if (mCurrentGame.isGameOver()) {
+        if (mCurrentGame.gameIsOver()) {
             Intent showEndGame = new Intent(this, GameOverActivity.class);
             startActivity(showEndGame);
         }

@@ -3,25 +3,26 @@ package com.nibble.wheelofjeopardy.game;
 public class Player {
 	private int id;
 	private String name;
-	private Score roundScore;
-	private Score totalScore;
-	private int freeSpins;
+	private Score roundScore = new Score(1);
+	private Score totalScore = new Score(1);
+	private int freeSpins = 0;
 
-	public Player(String name, int id)
+	public Player(int id)
     {
         this.id = id;
-        this.name = name;
+        this.name = "Player" + id;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName(String name) {
+    public String getName() {
         return name;
     }
 
     public Score getRoundScore() {
+	    System.out.println(name + "'s score is " + roundScore.getScore());
         return roundScore;
     }
 
@@ -47,6 +48,7 @@ public class Player {
 
     public void endRound(){
         totalScore.addToScore(roundScore.getScore());
+        roundScore = new Score(2);
     }
 	
 }

@@ -32,9 +32,12 @@ public class NewGameActivity extends AppCompatActivity {
         RadioGroup playerSelection = (RadioGroup) findViewById(R.id.selectPlayers);
         int radioButtonID = playerSelection.getCheckedRadioButtonId();
         int numPlayers = radioButtonID == R.id.radio_one_player ? 1:2;
-        Game newGame = new Game(numPlayers, 0);
+
+        Game newGame = new Game(numPlayers, 0, this.getApplicationContext().getFilesDir().getPath());
         GameManager.newGame(newGame);
+
         Intent wheelIntent = new Intent(this, WheelActivity.class);
         startActivity(wheelIntent);
+
     }
 }

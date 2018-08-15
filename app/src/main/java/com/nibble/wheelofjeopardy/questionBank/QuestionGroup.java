@@ -9,16 +9,15 @@ import org.json.simple.parser.ParseException;
 public class QuestionGroup {
 	private int id;
 	public String type;
-	private Vector<Question> questions;
+	private Vector<Question> questions = new Vector<Question>();
 	private JSONHelper jh;
 
-	public QuestionGroup(int id) throws IOException, ParseException
+	public QuestionGroup(int id, String fileDirPath) throws IOException, ParseException
 	{
 		this.id = id;
-		jh = new JSONHelper();
+		jh = new JSONHelper(fileDirPath);
 		jh.getID(this.id);
 		type = jh.getType();
-		questions = new Vector<Question>();
 		for(int i = 0; i < 5; i += 1)
 		{
 			Question q = new Question(i+1, jh.readQuestion(i+1), jh.readAnswer(i+1));
@@ -34,9 +33,10 @@ public class QuestionGroup {
 			String[] q2,
 			String[] q3,
 			String[] q4,
-			String[] q5) throws FileNotFoundException, IOException, ParseException
+			String[] q5,
+			String fileDirPath) throws FileNotFoundException, IOException, ParseException
 	{
-		jh = new JSONHelper();
+		jh = new JSONHelper(fileDirPath);
 		jh.writeQuestionGroup(id, type, q1, q2, q3, q4, q5);
 		type = jh.getType();
 		this.id = id;
@@ -77,7 +77,6 @@ public class QuestionGroup {
 	 **/
 
 	public Question getQuestion(int ID){
-		// todo
 		return questions.get(ID-1);
 	}
 

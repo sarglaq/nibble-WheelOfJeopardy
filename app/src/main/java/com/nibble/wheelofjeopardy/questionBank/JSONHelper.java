@@ -1,4 +1,6 @@
 package com.nibble.wheelofjeopardy.questionBank;
+import android.content.Context;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -29,21 +31,23 @@ public class JSONHelper
      */
     private static JSONObject jsonobj;
     private static JSONArray questionList;
+    private static String dirPath;
     private static String path;
 
-    public JSONHelper(int id)
+    public JSONHelper(String dirPath, int id)
     {
+        this.dirPath = dirPath;
         this.path = id+".json";
     }
 
-    public JSONHelper()
+    public JSONHelper(String dirPath)
     {
-
+        this.dirPath = dirPath;
     }
 
     public void getID(int i) throws FileNotFoundException, IOException, ParseException
     {
-        path = i+".json";
+        path = dirPath + i+".json";
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException, ParseException
@@ -76,7 +80,7 @@ public class JSONHelper
             String[] q5
     )
     {
-        path = id+".json";
+        path = dirPath + id+".json";
         jsonobj = new JSONObject();
         jsonobj.put("type", type);
         questionList = new JSONArray();

@@ -8,12 +8,12 @@ import java.util.Vector;
 import org.json.simple.parser.ParseException;
 
 public class QuestionBank {
-	//private URL file;
+	private String filePath;
 	private Vector<QuestionGroup> groups;
 	private Vector<String> typePool;
 
-	public QuestionBank(){
-		//this.file = file;
+	public QuestionBank(String filePath){
+		this.filePath = filePath;
 		groups = new Vector<QuestionGroup>();
 		typePool = new Vector<String>();
 	}
@@ -26,7 +26,7 @@ public class QuestionBank {
 		while(i < 6)
 		{
 			rdm = rand.nextInt(99)+1;// number should depends on the questions groups we have
-			if(addGroup(new QuestionGroup(rdm)))
+			if(addGroup(new QuestionGroup(rdm, filePath)))
 			{
 				i += 1;
 			}
@@ -62,12 +62,10 @@ public class QuestionBank {
 	 **/
 
 	public QuestionGroup getGroup(int groupID){
-		// todo
 		return groups.get(groupID);
 	}
 
 	public Vector<QuestionGroup> getAllGroups(){
-		// todo
 		return groups;
 	}
 

@@ -1,4 +1,8 @@
-package com.nibble.wheelofjeopardy.questionBank;
+package com.nibble.wheelofjeopardy.questionBoard;
+
+import com.nibble.wheelofjeopardy.questionBank.JSONHelper;
+import com.nibble.wheelofjeopardy.questionBank.QuestionBank;
+import com.nibble.wheelofjeopardy.questionBank.QuestionGroup;
 
 import java.io.IOException;
 
@@ -16,7 +20,7 @@ public class AQuestionBoardTester
         /**
          * random creator
          */
-        JSONHelper jhp = new JSONHelper();
+        JSONHelper jhp = new JSONHelper("temp/");
         for(int i = 1; i <= 100; i += 1)
         {
             String type = i+"type";
@@ -28,7 +32,7 @@ public class AQuestionBoardTester
             jhp.writeQuestionGroup(i, type, q1, q2, q3, q4, q5);
         }
 
-        QuestionBank qb = new QuestionBank();
+        QuestionBank qb = new QuestionBank("temp/");
         qb.open();
         for(QuestionGroup qg: qb.getAllGroups())
         {
@@ -57,12 +61,12 @@ public class AQuestionBoardTester
         jhp.writeAnswer(5, "new Answer5");
         jhp.getID(6);
         jhp.writeAnswer(1, "new Answer6");
-        qb.addGroup(new QuestionGroup(1));
-        qb.addGroup(new QuestionGroup(2));
-        qb.addGroup(new QuestionGroup(3));
-        qb.addGroup(new QuestionGroup(4));
-        qb.addGroup(new QuestionGroup(5));
-        qb.addGroup(new QuestionGroup(6));
+        qb.addGroup(new QuestionGroup(1, "temp/"));
+        qb.addGroup(new QuestionGroup(2, "temp/"));
+        qb.addGroup(new QuestionGroup(3, "temp/"));
+        qb.addGroup(new QuestionGroup(4, "temp/"));
+        qb.addGroup(new QuestionGroup(5, "temp/"));
+        qb.addGroup(new QuestionGroup(6, "temp/"));
         for(QuestionGroup qg: qb.getAllGroups())
         {
             System.out.print(qg.getQuestion(1).getQuestion()+" ");

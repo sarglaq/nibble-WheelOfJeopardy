@@ -5,44 +5,31 @@ import com.nibble.wheelofjeopardy.questionBoard.QuestionBoard;
 import com.nibble.wheelofjeopardy.wheel.Sector;
 import com.nibble.wheelofjeopardy.wheel.Wheel;
 import com.nibble.wheelofjeopardy.questionBank.Question;
+
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class Game {
 
-	enum Round {
-		ROUND1(1, "Round1"),
-		ROUND2(2, "Round2");
 
-		private int mID;
-		private String mName;
-
-		Round(int id, String name) {
-			mID = id;
-			mName = name;
-		}
-
-		public int getID() { return mID; }
-		public String getName() { return mName; }
-	}
-
-
-	private Queue<Player> players;
-	private Round currentRound;
-	private Player currentPlayer;
-	private Wheel wheel;
-	private int maxSpins;
+    private final Queue<Player> players = new LinkedList<>();
+	private final Wheel wheel = new Wheel();
+	private final int maxSpins = 50;
 	private QuestionBoard questionBoard;
-	private Question currentQuestion;
+
+	private Round currentRound = Round.ROUND1;
+	private Player currentPlayer = null;
+	private Question currentQuestion = null;
 	private boolean gameOver = false;
 
-	public Game(int numPlayers, int questionGroup)
+	public Game(int numPlayers, int questionGroup, String questionBankPath)
 	{
+	    questionBoard = new QuestionBoard(questionBankPath);
 		for(int i =0 ; i < numPlayers; i += 1)
 		{
-			players.add(new Player("Player"+i+1, i+1));
+			players.add(new Player(i+1));
 		}
-		maxSpins = 50;
-		currentPlayer = players.peek();
+		currentPlayer = players.poll();
 	}
 	
 	public int getNumPlayers(){
@@ -50,12 +37,13 @@ public class Game {
 	}
 	
 	public int getRemainingSpins(){
+	    System.out.println("remaing spins is: " + (maxSpins - wheel.getSpinCount()));
         return maxSpins - wheel.getSpinCount();
     }
 	
 	public int getRemainingQuestions(){
-	    // todo
-        return 0;
+	    System.out.println("Remaining questions is: " + questionBoard.getRemainingQuesitons());
+	    return questionBoard.getRemainingQuesitons();
     }
 	
 	public Round getCurrentRound(){
@@ -70,7 +58,7 @@ public class Game {
         return currentQuestion;
     }
 
-    public boolean isGameOver() {
+    public boolean gameIsOver() {
         return gameOver;
     }
 
@@ -114,28 +102,13 @@ public class Game {
     }
 	
 	public void loadQuestion(Category category){
-	    // todo
-
-		/*
-		 * The question that needs to be answered needs to be retrieved and stored in currentQuestion.
-		 * This should mostly be a pass through to the question board loadQuestion method. Something
-		 * like:
-		 * currentQuestion = questionBoard.getQuestion(category);
-		 *
-		 * The QuesitonBoard class hasn't been added yet. That needs to be filled. I'm not sure if
-		 * there was a jeopardy program that we were going to use for this or not.
-		 */
+		currentQuestion = questionBoard.getNextQuestion(category);
     }
 	
 	public void answerQuestion(boolean correct){
-	    // todo;
-
-        /*
-         * This function should get the value from currentQuestion and apply that many points
-         * to currentPlayer's score. If correct is true, it should apply positive points, if
-         * correct is false it should apply negative points. It should then clear currentQuestion
-         * (set it to null) as once answered the questions should be cleared.
-         */
+        int points = currentQuestion.getId() * 100 * (correct ? 1:-1);
+        currentPlayer.getRoundScore().addToScore(points);
+        currentQuestion = null;
     }
 
 
@@ -159,6 +132,7 @@ public class Game {
 	}
 
 	public void endTurn(boolean changePlayer) {
+	    System.out.println("ending turn");
 	    if (getRemainingSpins() == 0 || getRemainingQuestions() == 0) {
 	        endRound();
         }
@@ -174,12 +148,14 @@ public class Game {
     }
 
     private void endRound() {
+        System.out.println("ending round");
         for (Player player: players) {
             player.endRound();
         }
         wheel.reset();
 
 	    if (currentRound == Round.ROUND2) {
+            System.out.println("ending game");
             gameOver = true;
         }
     }

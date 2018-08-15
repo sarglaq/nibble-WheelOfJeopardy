@@ -21,6 +21,10 @@ public class Question {
 		//this.video = video;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	public String getQuestion() {
 		return question;
 	}

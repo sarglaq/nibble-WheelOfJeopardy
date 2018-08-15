@@ -17,8 +17,6 @@ public class QuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         TextView questionText = (TextView) findViewById(R.id.question_text);
         questionText.setText(GameManager.getInstance().getGame().getCurrentQuestion().getQuestion());
@@ -34,7 +32,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void displayAnswer(CharSequence userAnswer) {
-        Intent askQuesiton = new Intent(this, QuestionActivity.class);
+        Intent askQuesiton = new Intent(this, AnswerActivity.class);
         askQuesiton.putExtra("USER_ANSWER", userAnswer);
         startActivity(askQuesiton);
     }
