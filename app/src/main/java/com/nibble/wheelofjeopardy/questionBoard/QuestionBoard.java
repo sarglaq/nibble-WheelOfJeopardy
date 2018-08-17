@@ -12,11 +12,12 @@ public class QuestionBoard {
     // todo fil board with actual questions
     public QuestionBoard(String fileDirPath) {
         for (int i = 0; i < numCategories; i++) {
-            String[] q1 = {"c" + i + "q1", "c" + i + "a1"};
-            String[] q2 = {"c" + i + "q2", "c" + i + "a2"};
-            String[] q3 = {"c" + i + "q3", "c" + i + "a3"};
-            String[] q4 = {"c" + i + "q4", "c" + i + "a4"};
-            String[] q5 = {"c" + i + "q5", "c" + i + "a5"};
+            int cat = i + 1;
+            String[] q1 = {"c" + cat + "q1", "c" + cat + "a1"};
+            String[] q2 = {"c" + cat + "q2", "c" + cat + "a2"};
+            String[] q3 = {"c" + cat + "q3", "c" + cat + "a3"};
+            String[] q4 = {"c" + cat + "q4", "c" + cat + "a4"};
+            String[] q5 = {"c" + cat + "q5", "c" + cat + "a5"};
             try {
                 QuestionGroup newGroup = new QuestionGroup(i, "category" + i, q1, q2, q3, q4, q5, fileDirPath);
                 System.out.println("made new group: " + newGroup);
@@ -54,6 +55,15 @@ public class QuestionBoard {
             }
         }
         return numRemaining;
+    }
+
+    public boolean anyQuestionsRemaining(Category category) {
+        for (int i = 0; i < numQuestionsPerCategory; i++) {
+            if (!questionAnswered[category.getValue()-1][i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void reset() {

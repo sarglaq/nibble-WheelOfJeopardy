@@ -5,7 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="welcome">Welcome to Wheel of Jeopardy! Start a game when you are ready!</string>
     <string name="title_activity_wheel">WheelActivity</string>
-    <string name="wheel_greeting">Sping the wheel and take your turn!</string>
+    <string name="wheel_greeting">Spin the wheel and take your turn!</string>
 
     <string name="num_players">Number of Players:</string>
     <string name="one_player">One</string>
@@ -24,9 +24,19 @@
     <string name="score">Score:</string>
     <string name="remaining_spins">Remaining Spins:</string>
     <string name="remaining_questions">Remaining Questions:</string>
+    <string name="wheel">The Wheel:</string>
 
     <string name="players_choice">Pick the category you want to anwers a question from.</string>
     <string name="opponents_choice">Have your oppenet pick the category for you!</string>
+
+    <string name="answer_question">Get ready to answer a question from %s!</string>
+    <string name="you_pick">Pick the category you want to answer a question from!</string>
+    <string name="they_pick">Let your opponent pick the category your questions will come from!</string>
+    <string name="won_free_spin">You got a Free Spin token! You now have %d Free Spin tokens!</string>
+    <string name="lose_turn">Oh teh nose! You lost your turn!</string>
+    <string name="score_bankrupt">Oh teh nose! You were just bankrupt!</string>
+    <string name="score_doubled">Your score just doubled! Sweet!</string>
+    <string name="no_more_questions">There are no more questions in that category. Take another spin!</string>
 
     <string name="question_label">Question:</string>
     <string name="answer_label">Answer:</string>
@@ -42,10 +52,11 @@
     <string name="start_game_button">Start Game</string>
     <string name="spin_wheel_button">Spin Wheel</string>
     <string name="show_answer_button">Show Answer</string>
-    <string name="correct_button">Correct</string>
-    <string name="wrong_button">Wrong</string>
     <string name="title_activity_question_board">QuestionBoardActivity</string>
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
+    <string name="ok_button">Okay</string>
     <string name="title_activity_answer">AnswerActivity</string>
+    <string name="title_question_list">Questions</string>
+    <string name="title_question_detail">Question Detail</string>
 </resources>

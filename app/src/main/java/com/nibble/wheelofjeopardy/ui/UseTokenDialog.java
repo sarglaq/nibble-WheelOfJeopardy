@@ -22,8 +22,11 @@ public class UseTokenDialog extends DialogFragment {
         dialogBuilder.setPositiveButton(R.string.yes_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                GameManager.getGame().getCurrentPlayer().useFreeSpin();
                 if (getActivity() instanceof WheelActivity) {
                     ((WheelActivity) getActivity()).endTurn(false);
+                } else if (getActivity() instanceof AnswerActivity) {
+                    ((AnswerActivity) getActivity()).useFreeSpin(true);
                 }
             }
         });
@@ -32,6 +35,8 @@ public class UseTokenDialog extends DialogFragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (getActivity() instanceof WheelActivity) {
                     ((WheelActivity) getActivity()).endTurn(true);
+                } else if (getActivity() instanceof AnswerActivity) {
+                    ((AnswerActivity) getActivity()).useFreeSpin(false);
                 }
             }
         });

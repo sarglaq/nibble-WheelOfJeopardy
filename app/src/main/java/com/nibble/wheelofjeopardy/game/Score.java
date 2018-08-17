@@ -9,15 +9,11 @@ public class Score {
 	}
 	
 	public int getScore(){
-	    System.out.println("Score object has score: " + score);
 	    return score;
     }
 	
 	public void addToScore(int points){
-	    System.out.println("current score: " + score);
-		System.out.println("Adding " + points + " with multiplier " + multiplier);
 	    score += (multiplier * points);
-        System.out.println("new score: " + score);
     }
 	
 	public void bankruptScore(){

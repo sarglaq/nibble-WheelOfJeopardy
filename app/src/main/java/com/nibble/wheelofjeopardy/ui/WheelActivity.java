@@ -2,6 +2,7 @@ package com.nibble.wheelofjeopardy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 import com.nibble.wheelofjeopardy.R;
 import com.nibble.wheelofjeopardy.game.Game;
 import com.nibble.wheelofjeopardy.game.GameManager;
+import com.nibble.wheelofjeopardy.questionBank.Question;
 import com.nibble.wheelofjeopardy.questionBoard.Category;
 import com.nibble.wheelofjeopardy.wheel.Sector;
+
+import org.w3c.dom.Text;
 
 public class WheelActivity extends AppCompatActivity {
 
@@ -39,7 +43,6 @@ public class WheelActivity extends AppCompatActivity {
     }
 
     private void updateUiInfo() {
-        System.out.println("Updating UI info");
 
         TextView round = (TextView) findViewById(R.id.current_round);
         round.setText(mCurrentGame.getCurrentRound().getName());
@@ -48,16 +51,16 @@ public class WheelActivity extends AppCompatActivity {
         player.setText(mCurrentGame.getCurrentPlayer().getName());
 
         TextView score = (TextView) findViewById(R.id.score);
-        String scoreAsString = "" + mCurrentGame.getCurrentPlayer().getRoundScore().getScore();
-        score.setText(scoreAsString);
+        String scoreString = new StringBuilder().append(mCurrentGame.getCurrentPlayer().getRoundScore().getScore()).toString();
+        score.setText(scoreString);
 
         TextView spins = (TextView) findViewById(R.id.remaining_spins);
-        String spinsAsString = "" + mCurrentGame.getRemainingSpins();
-        score.setText(spinsAsString);
+        String spinsAsString = new StringBuilder().append(mCurrentGame.getRemainingSpins()).toString();
+        spins.setText(spinsAsString);
 
         TextView questions = (TextView) findViewById(R.id.remaining_questions);
-        String questionsAsString = "" + mCurrentGame.getRemainingQuestions();
-        score.setText(questionsAsString);
+        String questionsAsString = new StringBuilder().append(mCurrentGame.getRemainingQuestions()).toString();
+        questions.setText(questionsAsString);
     }
 
     private void spinWheel() {
@@ -66,10 +69,17 @@ public class WheelActivity extends AppCompatActivity {
             startActivity(newGame);
         }
 
-        TextView wheelMessage = (TextView) findViewById(R.id.wheel_message);
-
         Sector state = mCurrentGame.spinWheel();
-        System.out.println("Just spun " + state);
+
+        TextView wheelMessage = (TextView) findViewById(R.id.wheel_message);
+        wheelMessage.setText(R.string.wheel_greeting);
+
+        WheelResultDialog wheelDialog = new WheelResultDialog();
+        wheelDialog.setContext(getApplicationContext());
+        wheelDialog.setSector(state);
+        wheelDialog.show(getSupportFragmentManager(), "WheelResult");
+    }
+    public void performWheelAction(Sector state) {
         switch (state) {
             case CATEGORY_ONE:
                 askQuesiton(Category.CATEGORY_ONE);
@@ -100,30 +110,21 @@ public class WheelActivity extends AppCompatActivity {
                 opponentChooseCategoryDialog.show(getSupportFragmentManager(), "OpponentChoosingCategory");
                 break;
             case FREE_SPIN:
-                StringBuilder messageBuilder = new StringBuilder();
-                messageBuilder.append("You got a Free Spin token! You now have ");
-                messageBuilder.append(mCurrentGame.getCurrentPlayer().getFreeSpins());
-                messageBuilder.append(" Free Spin tokens to use.");
-                wheelMessage.setText(messageBuilder.toString());
                 endTurn(false);
                 break;
             case LOOSE_TURN:
                 int freeSpins = mCurrentGame.getCurrentPlayer().getFreeSpins();
-                wheelMessage.setText("Oh teh nose! You lost your turn!");
-                if (freeSpins < 0) {
-                    endTurn(true);
+                if (freeSpins > 0) {
+                    UseTokenDialog askUseToken = new UseTokenDialog();
+                    askUseToken.show(getSupportFragmentManager(), "AskToUseTokenDialog");
+                    break;
                 }
-                UseTokenDialog askUseToken = new UseTokenDialog();
-                askUseToken.show(getSupportFragmentManager(), "AskToUseTokenDialog");
+                endTurn(true);
                 break;
             case BANKRUPT:
-                mCurrentGame.getCurrentPlayer().getRoundScore().bankruptScore();
-                wheelMessage.setText("Oh teh nose! You've been bankrupt!");
                 endTurn(true);
                 break;
             case DOUBLE_SCORE:
-                mCurrentGame.getCurrentPlayer().getRoundScore().doubleScore();
-                wheelMessage.setText("Your score just doubled! Sweet!");
                 endTurn(false);
                 break;
         }
@@ -136,6 +137,7 @@ public class WheelActivity extends AppCompatActivity {
     }
 
     public void checkIfGameIsOver() {
+        System.out.println("Game over? " + mCurrentGame.gameIsOver());
         if (mCurrentGame.gameIsOver()) {
             Intent showEndGame = new Intent(this, GameOverActivity.class);
             startActivity(showEndGame);
@@ -144,7 +146,16 @@ public class WheelActivity extends AppCompatActivity {
 
     public void askQuesiton(Category category) {
         mCurrentGame.loadQuestion(category);
-        Intent askQuesiton = new Intent(this, QuestionActivity.class);
-        startActivity(askQuesiton);
+
+        Question question = mCurrentGame.getCurrentQuestion();
+        if (question == null) {
+            // all the questions have been answered or something is wrong and should be handled gracefully
+            TextView wheelMessage = (TextView) findViewById(R.id.wheel_message);
+            wheelMessage.setText(R.string.no_more_questions);
+            endTurn(false);
+        } else {
+            Intent askQuestion = new Intent(this, QuestionActivity.class);
+            startActivity(askQuestion);
+        }
     }
 }

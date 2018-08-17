@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.nibble.wheelofjeopardy.R;
 import com.nibble.wheelofjeopardy.game.GameManager;
+import com.nibble.wheelofjeopardy.questionBank.Question;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question);
 
         TextView questionText = (TextView) findViewById(R.id.question_text);
-        questionText.setText(GameManager.getInstance().getGame().getCurrentQuestion().getQuestion());
+        questionText.setText(GameManager.getGame().getCurrentQuestion().getQuestion());
 
         Button submitButton = (Button) findViewById(R.id.submit_answer_button);
         submitButton.setOnClickListener(new View.OnClickListener() {

@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 import com.nibble.wheelofjeopardy.R;
+import com.nibble.wheelofjeopardy.game.GameManager;
 import com.nibble.wheelofjeopardy.questionBoard.Category;
+
+import java.util.Vector;
 
 public class ChooseCategoryDialog extends DialogFragment {
 
@@ -22,40 +25,22 @@ public class ChooseCategoryDialog extends DialogFragment {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(playersChoice ? R.string.players_choice:R.string.opponents_choice);
 
-        final String[] categories = {
-                Category.CATEGORY_ONE.getName(),
-                Category.CATEGORY_TWO.getName(),
-                Category.CATEGORY_THREE.getName(),
-                Category.CATEGORY_FOUR.getName(),
-                Category.CATEGORY_FIVE.getName(),
-                Category.CATEGORY_SIX.getName(),
-        };
+        final Vector<Category> categories = new Vector<>();
+        for (Category category: Category.values()) {
+            if (GameManager.getGame().anyQuestionsRemaining(category)) {
+                categories.add(category);
+            }
+        }
 
-        dialogBuilder.setItems(categories, new DialogInterface.OnClickListener() {
+        final String[] categoryNames = new String[categories.size()];
+        for (int i = 0; i < categories.size(); i++) {
+            categoryNames[i] = categories.get(i).getName();
+        }
+
+        dialogBuilder.setItems(categoryNames, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Category selectedCategory;
-                switch (i) {
-                    case 0:
-                        selectedCategory = Category.CATEGORY_ONE;
-                        break;
-                    case 1:
-                        selectedCategory = Category.CATEGORY_TWO;
-                        break;
-                    case 2:
-                        selectedCategory = Category.CATEGORY_THREE;
-                        break;
-                    case 3:
-                        selectedCategory = Category.CATEGORY_FOUR;
-                        break;
-                    case 4:
-                        selectedCategory = Category.CATEGORY_FIVE;
-                        break;
-                    case 5:
-                    default:
-                        selectedCategory = Category.CATEGORY_SIX;
-                        break;
-                }
+                Category selectedCategory = categories.get(i);
                 if (getActivity() instanceof WheelActivity) {
                     System.out.println("Selected " + selectedCategory.name());
                     ((WheelActivity) getActivity()).askQuesiton(selectedCategory);

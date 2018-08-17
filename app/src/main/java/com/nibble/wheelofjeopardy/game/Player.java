@@ -22,7 +22,6 @@ public class Player {
     }
 
     public Score getRoundScore() {
-	    System.out.println(name + "'s score is " + roundScore.getScore());
         return roundScore;
     }
 

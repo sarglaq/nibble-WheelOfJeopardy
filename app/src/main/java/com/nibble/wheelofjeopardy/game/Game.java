@@ -6,8 +6,11 @@ import com.nibble.wheelofjeopardy.wheel.Sector;
 import com.nibble.wheelofjeopardy.wheel.Wheel;
 import com.nibble.wheelofjeopardy.questionBank.Question;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Vector;
 
 public class Game {
 
@@ -31,19 +34,21 @@ public class Game {
 		}
 		currentPlayer = players.poll();
 	}
-	
-	public int getNumPlayers(){
-	    return players.size();
-	}
-	
-	public int getRemainingSpins(){
-	    System.out.println("remaing spins is: " + (maxSpins - wheel.getSpinCount()));
+
+    public Queue<Player> getPlayers() {
+        return players;
+    }
+
+    public int getRemainingSpins(){
         return maxSpins - wheel.getSpinCount();
     }
 	
 	public int getRemainingQuestions(){
-	    System.out.println("Remaining questions is: " + questionBoard.getRemainingQuesitons());
 	    return questionBoard.getRemainingQuesitons();
+    }
+
+    public boolean anyQuestionsRemaining(Category category) {
+	    return questionBoard.anyQuestionsRemaining(category);
     }
 	
 	public Round getCurrentRound(){
@@ -110,29 +115,17 @@ public class Game {
         currentPlayer.getRoundScore().addToScore(points);
         currentQuestion = null;
     }
-
-
-	public int[] getPlayerRoundScores(){
-		int[] scores = new int[getNumPlayers()];
-		for(Player p: players)
-		{
-			scores[p.getId()-1] = p.getRoundScore().getScore();
-		}
-		return scores;
-    }
 	
-	public int[] getPlayerRTotalScores(){
-        // todo
-		int[] scores = new int[getNumPlayers()];
-		for(Player p: players)
-		{
-			scores[p.getId()-1] = p.getTotalScore().getScore();
-		}
-        return scores;
+	public Map<String, Integer> getPlayerTotalScores(){
+        Map<String, Integer> playerSummary = new HashMap<>();
+	    for (Player p: players) {
+	        playerSummary.put(p.getName(), p.getTotalScore().getScore());
+        }
+
+		return playerSummary;
 	}
 
 	public void endTurn(boolean changePlayer) {
-	    System.out.println("ending turn");
 	    if (getRemainingSpins() == 0 || getRemainingQuestions() == 0) {
 	        endRound();
         }
@@ -148,14 +141,20 @@ public class Game {
     }
 
     private void endRound() {
-        System.out.println("ending round");
+	    System.out.println("Round is ending.");
         for (Player player: players) {
             player.endRound();
         }
         wheel.reset();
+        questionBoard.reset();
 
-	    if (currentRound == Round.ROUND2) {
-            System.out.println("ending game");
+	    if (currentRound == Round.ROUND1) {
+	        System.out.println("Moving to round 2");
+            currentRound = Round.ROUND2;
+        } else {
+	        System.out.println("setting gameOver to true");
+	        players.add(currentPlayer);
+	        currentPlayer = null;
             gameOver = true;
         }
     }

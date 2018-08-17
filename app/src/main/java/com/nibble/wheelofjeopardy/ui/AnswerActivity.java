@@ -52,10 +52,32 @@ public class AnswerActivity extends AppCompatActivity {
     private void answerQuestion(boolean correct) {
         Game game = GameManager.getGame();
         game.answerQuestion(correct);
-        /* If the player gets the question right (correct = true) than it remains their turn
-         * (changePlayer = false) and vice versa. So pass the inverted value of correct to endTurn.
-         */
-        game.endTurn(!correct);
+
+        if (correct) {
+            // Same player spins again if they got it right
+            game.endTurn(false);
+            Intent returnToWheel = new Intent(this, WheelActivity.class);
+            startActivity(returnToWheel);
+        } else {
+            // Give the user a chance to use a free token if they get the question wrong
+            if (game.getCurrentPlayer().getFreeSpins() > 0) {
+                UseTokenDialog askUseToken = new UseTokenDialog();
+                askUseToken.show(getSupportFragmentManager(), "AskToUseTokenDialog");
+            } else {
+                game.endTurn(true);
+                Intent returnToWheel = new Intent(this, WheelActivity.class);
+                startActivity(returnToWheel);
+            }
+        }
+    }
+
+    public void useFreeSpin(boolean useToken) {
+        Game game = GameManager.getGame();
+        if (useToken) {
+            game.endTurn(false);
+        } else {
+            game.endTurn(true);
+        }
         Intent returnToWheel = new Intent(this, WheelActivity.class);
         startActivity(returnToWheel);
     }
