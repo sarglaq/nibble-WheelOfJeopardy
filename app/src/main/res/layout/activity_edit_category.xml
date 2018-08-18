@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.EditCategory">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_category_to_edit"/>
+
+    <Button
+        android:id="@+id/category_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category_1"/>
+
+    <Button
+        android:id="@+id/category_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category_2"/>
+
+    <Button
+        android:id="@+id/category_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category_3"/>
+
+    <Button
+        android:id="@+id/category_four"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category_4"/>
+
+    <Button
+        android:id="@+id/category_five"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category_5"/>
+
+    <Button
+        android:id="@+id/category_six"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category_6"/>
+
+    <Button
+        android:id="@+id/new_game_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_game_button"/>
+
+</LinearLayout>

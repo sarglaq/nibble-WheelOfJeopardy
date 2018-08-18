@@ -1,12 +1,12 @@
 package com.nibble.wheelofjeopardy.questionBoard;
 
 public enum Category {
-    CATEGORY_ONE(1, "Category One"),
-    CATEGORY_TWO(2, "Category Two"),
-    CATEGORY_THREE(3, "Category Three"),
-    CATEGORY_FOUR(4, "Category Four"),
-    CATEGORY_FIVE(5, "Category Five"),
-    CATEGORY_SIX(6, "Category Six");
+    CATEGORY_ONE(1, "History"),
+    CATEGORY_TWO(2, "Astronomy"),
+    CATEGORY_THREE(3, "Chemistry"),
+    CATEGORY_FOUR(4, "Geography"),
+    CATEGORY_FIVE(5, "Literature"),
+    CATEGORY_SIX(6, "General");
 
     private int value;
     private String name;
@@ -17,4 +17,5 @@ public enum Category {
     }
     public int getValue() { return value; }
     public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 }

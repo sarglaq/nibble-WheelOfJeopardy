@@ -6,18 +6,32 @@
     <string name="welcome">Welcome to Wheel of Jeopardy! Start a game when you are ready!</string>
     <string name="title_activity_wheel">WheelActivity</string>
     <string name="wheel_greeting">Spin the wheel and take your turn!</string>
+    <string name="pick_category_to_edit">Select the category you would like to edit.</string>
 
     <string name="num_players">Number of Players:</string>
     <string name="one_player">One</string>
     <string name="two_players">Two</string>
 
-    <string name="choose_categories">Select which question groups to use for each category on the question board.</string>
-    <string name="category_1">Category 1:</string>
-    <string name="category_2">Category 2:</string>
-    <string name="category_3">Category 3:</string>
-    <string name="category_4">Category 4:</string>
-    <string name="category_5">Category 5:</string>
-    <string name="category_6">Category 6:</string>
+    <string name="category_1">Category 1</string>
+    <string name="category_2">Category 2</string>
+    <string name="category_3">Category 3</string>
+    <string name="category_4">Category 4</string>
+    <string name="category_5">Category 5</string>
+    <string name="category_6">Category 6</string>
+
+    <string name="category_name">Category Name:</string>
+
+    <string name="question_1">Question 1:</string>
+    <string name="question_2">Question 2:</string>
+    <string name="question_3">Question 3:</string>
+    <string name="question_4">Question 4:</string>
+    <string name="question_5">Question 5:</string>
+
+    <string name="answer_1">Answer 1:</string>
+    <string name="answer_2">Answer 2:</string>
+    <string name="answer_3">Answer 3:</string>
+    <string name="answer_4">Answer 4:</string>
+    <string name="answer_5">Answer 5:</string>
 
     <string name="current_round">Current Round:</string>
     <string name="current_player">Current Player:</string>
@@ -50,13 +64,17 @@
     <!-- Misc Buttons -->
     <string name="new_game_button">New Game</string>
     <string name="start_game_button">Start Game</string>
+    <string name="edit_questions">Edit Questions</string>
     <string name="spin_wheel_button">Spin Wheel</string>
     <string name="show_answer_button">Show Answer</string>
     <string name="title_activity_question_board">QuestionBoardActivity</string>
     <string name="yes_button">Yes</string>
     <string name="no_button">No</string>
     <string name="ok_button">Okay</string>
+    <string name="right_button">Right</string>
+    <string name="wrong_button">Wrong</string>
     <string name="title_activity_answer">AnswerActivity</string>
     <string name="title_question_list">Questions</string>
     <string name="title_question_detail">Question Detail</string>
+    <string name="save_button">Save</string>
 </resources>

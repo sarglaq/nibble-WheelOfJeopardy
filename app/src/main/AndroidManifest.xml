@@ -3,6 +3,9 @@
     package="com.nibble.wheelofjeopardy">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,19 +36,8 @@
             android:label="@string/title_activity_answer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.GameOverActivity" />
-        <activity
-            android:name=".ui.QuestionListActivity"
-            android:label="@string/title_question_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ui.QuestionDetailActivity"
-            android:label="@string/title_question_detail"
-            android:parentActivityName=".ui.QuestionListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.nibble.wheelofjeopardy.ui.QuestionListActivity" />
-        </activity>
+        <activity android:name=".ui.EditCategory" />
+        <activity android:name=".ui.EditQuestions"></activity>
     </application>
 
 </manifest>

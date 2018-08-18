@@ -1,7 +1,10 @@
 package com.nibble.wheelofjeopardy.questionBoard;
 
 import com.nibble.wheelofjeopardy.questionBank.Question;
+import com.nibble.wheelofjeopardy.questionBank.QuestionBank;
 import com.nibble.wheelofjeopardy.questionBank.QuestionGroup;
+
+import java.util.Vector;
 
 public class QuestionBoard {
     private final int numCategories = 6;
@@ -10,7 +13,8 @@ public class QuestionBoard {
     private boolean[][] questionAnswered = new boolean[numCategories][numQuestionsPerCategory];
 
     // todo fil board with actual questions
-    public QuestionBoard(String fileDirPath) {
+    public QuestionBoard() {
+        /*
         for (int i = 0; i < numCategories; i++) {
             int cat = i + 1;
             String[] q1 = {"c" + cat + "q1", "c" + cat + "a1"};
@@ -26,8 +30,18 @@ public class QuestionBoard {
                 System.out.println(e);
             }
         }
+        */
+        QuestionBank bank = new QuestionBank();
+        try {
+            bank.open();
+        } catch (Exception e) {
+            System.out.println("Failed to open quesiton bank.");
+            System.out.println(e);
+        }
+        Vector<QuestionGroup> categoryOptions = bank.getAllGroups();
 
         for (int i = 0; i < numCategories; i++) {
+            categories[i] = categoryOptions.get(i);
             for (int j = 0; j < numQuestionsPerCategory; j++) {
                 questionAnswered[i][j] = false;
             }
@@ -35,9 +49,12 @@ public class QuestionBoard {
     }
 
     public Question getNextQuestion(Category category) {
+        System.out.println("Getting a question from " + category.getName());
         int categoryIndex = category.getValue() - 1;
         for (int j = 0; j < numQuestionsPerCategory; j++) {
+            System.out.println("Checking if question " + j + " has been answered.");
             if (!questionAnswered[categoryIndex][j]) {
+                System.out.println("Question " + j + " has not been answered, returning.");
                 questionAnswered[categoryIndex][j] = true;
                 return categories[categoryIndex].getQuestion(j+1);
             }

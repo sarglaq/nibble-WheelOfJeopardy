@@ -18,16 +18,17 @@ public class Game {
     private final Queue<Player> players = new LinkedList<>();
 	private final Wheel wheel = new Wheel();
 	private final int maxSpins = 50;
-	private QuestionBoard questionBoard;
+	private QuestionBoard questionBoard = new QuestionBoard();
 
 	private Round currentRound = Round.ROUND1;
 	private Player currentPlayer = null;
 	private Question currentQuestion = null;
 	private boolean gameOver = false;
 
-	public Game(int numPlayers, int questionGroup, String questionBankPath)
+	public Game(int numPlayers)
 	{
-	    questionBoard = new QuestionBoard(questionBankPath);
+	    wheel.reset();
+	    questionBoard.reset();
 		for(int i =0 ; i < numPlayers; i += 1)
 		{
 			players.add(new Player(i+1));

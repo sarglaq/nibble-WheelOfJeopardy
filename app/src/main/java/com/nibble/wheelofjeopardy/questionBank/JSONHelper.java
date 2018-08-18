@@ -1,6 +1,8 @@
 package com.nibble.wheelofjeopardy.questionBank;
 import android.content.Context;
 
+import com.nibble.wheelofjeopardy.questionBoard.Category;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -31,18 +33,17 @@ public class JSONHelper
      */
     private static JSONObject jsonobj;
     private static JSONArray questionList;
-    private static String dirPath;
+    private static String dirPath = "/data/user/0/com.nibble.wheelofjeopardy/files/";
     private static String path;
 
-    public JSONHelper(String dirPath, int id)
+    public JSONHelper(int id)
     {
-        this.dirPath = dirPath;
         this.path = id+".json";
     }
 
-    public JSONHelper(String dirPath)
+    public JSONHelper()
     {
-        this.dirPath = dirPath;
+        // nothing to do;
     }
 
     public void getID(int i) throws FileNotFoundException, IOException, ParseException
@@ -198,4 +199,64 @@ public class JSONHelper
         return questionList.get(number-1+5).toString();
     }
 
+    public static void writeCategoryNames(String[] names) {
+        System.out.println("Writing names to disk");
+        String catPat = dirPath + "categoryNames.json";
+        jsonobj = new JSONObject();
+        questionList = new JSONArray();
+        for (int i = 0; i < Category.values().length; i++) {
+            questionList.add(i, names[i]);
+        }
+        jsonobj.put("names", questionList);
+
+        try(FileWriter file = new FileWriter(catPat))
+        {
+            file.write(jsonobj.toString());
+            file.flush();
+            System.out.println("Wrote category names " + names + " to " + catPat);
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static String[] readCategoryNames()
+    {
+        String[] names = new String[6];
+        String catPat = dirPath + "categoryNames.json";
+        JSONParser parser = new JSONParser();
+        try {
+            System.out.println("Trying to read category names");
+            Object obj = parser.parse(new FileReader(catPat));
+            System.out.println("opened category names files");
+            jsonobj = (JSONObject) obj;
+            questionList = (JSONArray) jsonobj.get("names");
+            System.out.println("got names");
+
+            for (int i = 0; i < Category.values().length; i++) {
+                names[i] = questionList.get(i).toString();
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to read category names from disk at path " + catPat);
+            e.printStackTrace();
+            for (int i = 0; i < 6; i++) {
+                names[i] = Category.values()[i].getName();
+            }
+        }
+        return names;
+    }
+
+    public static void writeCategoryName(int id, String name)  throws IOException, ParseException
+    {
+        String[] names = readCategoryNames();
+        names[id-1] = name;
+        writeCategoryNames(names);
+    }
+
+    public static String readCategoryName(int id)  throws IOException, ParseException
+    {
+        String[] names = readCategoryNames();
+        return names[id-1];
+    }
 }

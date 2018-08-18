@@ -41,14 +41,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="@string/yes_button"/>
+            android:text="@string/right_button"/>
 
         <Button
             android:id="@+id/wrong_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="@string/no_button"/>
+            android:text="@string/wrong_button"/>
     </RelativeLayout>
 
 </LinearLayout>
