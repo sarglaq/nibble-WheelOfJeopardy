@@ -55,6 +55,7 @@
     <string name="question_label">Question:</string>
     <string name="answer_label">Answer:</string>
     <string name="user_answer_label">Your Answer:</string>
+    <string name="time_remaining">Seconds remaining:</string>
     <string name="is_answer_correct">Did you get the answer correct?</string>
 
     <string name="game_over">The game is over!</string>

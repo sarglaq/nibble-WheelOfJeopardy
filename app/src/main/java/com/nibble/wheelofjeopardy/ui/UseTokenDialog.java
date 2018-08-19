@@ -27,6 +27,8 @@ public class UseTokenDialog extends DialogFragment {
                     ((WheelActivity) getActivity()).endTurn(false);
                 } else if (getActivity() instanceof AnswerActivity) {
                     ((AnswerActivity) getActivity()).useFreeSpin(true);
+                } else if (getActivity() instanceof QuestionActivity) {
+                    ((QuestionActivity) getActivity()).useFreeSpin(true);
                 }
             }
         });
@@ -37,6 +39,8 @@ public class UseTokenDialog extends DialogFragment {
                     ((WheelActivity) getActivity()).endTurn(true);
                 } else if (getActivity() instanceof AnswerActivity) {
                     ((AnswerActivity) getActivity()).useFreeSpin(false);
+                } else if (getActivity() instanceof QuestionActivity) {
+                    ((QuestionActivity) getActivity()).useFreeSpin(false);
                 }
             }
         });

@@ -2,6 +2,8 @@ package com.nibble.wheelofjeopardy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import com.nibble.wheelofjeopardy.R;
 import com.nibble.wheelofjeopardy.game.Game;
 import com.nibble.wheelofjeopardy.game.GameManager;
+
+import java.util.TimerTask;
 
 public class AnswerActivity extends AppCompatActivity {
 
@@ -36,7 +40,7 @@ public class AnswerActivity extends AppCompatActivity {
         correctButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                answerQuestion(true);
+                answerQuestion(Game.AnswerOptions.CORRET);
             }
         });
 
@@ -44,16 +48,16 @@ public class AnswerActivity extends AppCompatActivity {
         wrongButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                answerQuestion(false);
+                answerQuestion(Game.AnswerOptions.WRONG);
             }
         });
     }
 
-    private void answerQuestion(boolean correct) {
+    private void answerQuestion(Game.AnswerOptions result) {
         Game game = GameManager.getGame();
-        game.answerQuestion(correct);
+        game.answerQuestion(result);
 
-        if (correct) {
+        if (result == Game.AnswerOptions.CORRET) {
             // Same player spins again if they got it right
             game.endTurn(false);
             Intent returnToWheel = new Intent(this, WheelActivity.class);

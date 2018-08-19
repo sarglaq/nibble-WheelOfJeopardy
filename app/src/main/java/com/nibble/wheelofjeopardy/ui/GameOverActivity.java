@@ -27,6 +27,7 @@ public class GameOverActivity extends AppCompatActivity {
         StringBuilder playerScoreText = new StringBuilder();
         Queue<Player> players = game.getPlayers();
         for (Player p: players) {
+            if (p == null) continue;
             playerScoreText.append(p.getName());
             playerScoreText.append(": ");
             playerScoreText.append(p.getTotalScore().getScore());

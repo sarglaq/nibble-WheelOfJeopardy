@@ -2,7 +2,6 @@ package com.nibble.wheelofjeopardy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +14,6 @@ import com.nibble.wheelofjeopardy.questionBank.Question;
 import com.nibble.wheelofjeopardy.questionBoard.Category;
 import com.nibble.wheelofjeopardy.wheel.Sector;
 
-import org.w3c.dom.Text;
-
 public class WheelActivity extends AppCompatActivity {
 
     private Game mCurrentGame = null;
@@ -27,6 +24,10 @@ public class WheelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wheel);
 
         mCurrentGame = GameManager.getGame();
+        if (mCurrentGame.gameIsOver()) {
+            endGame();
+            return;
+        }
 
         TextView wheelMessage = (TextView) findViewById(R.id.wheel_message);
         wheelMessage.setText(R.string.wheel_greeting);
@@ -132,16 +133,17 @@ public class WheelActivity extends AppCompatActivity {
 
     public void endTurn(boolean changePlayer) {
         mCurrentGame.endTurn(changePlayer);
-        updateUiInfo();
-        checkIfGameIsOver();
+        if (mCurrentGame.gameIsOver()) {
+            endGame();
+        } else {
+            updateUiInfo();
+        }
     }
 
-    public void checkIfGameIsOver() {
-        System.out.println("Game over? " + mCurrentGame.gameIsOver());
-        if (mCurrentGame.gameIsOver()) {
-            Intent showEndGame = new Intent(this, GameOverActivity.class);
-            startActivity(showEndGame);
-        }
+    public void endGame() {
+        System.out.println("Game over, showing summary");
+        Intent showEndGame = new Intent(this, GameOverActivity.class);
+        startActivity(showEndGame);
     }
 
     public void askQuesiton(Category category) {

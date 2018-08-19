@@ -33,4 +33,16 @@
         android:layout_height="wrap_content"
         android:text="@string/show_answer_button"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/time_remaining"/>
+
+    <TextView
+        android:id="@+id/timmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:text="60"/>
+
 </LinearLayout>

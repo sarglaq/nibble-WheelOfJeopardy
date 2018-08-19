@@ -14,6 +14,11 @@ import java.util.Vector;
 
 public class Game {
 
+    public enum AnswerOptions {
+        CORRET,
+        WRONG,
+        TIME_EXPIRED
+    }
 
     private final Queue<Player> players = new LinkedList<>();
 	private final Wheel wheel = new Wheel();
@@ -111,8 +116,20 @@ public class Game {
 		currentQuestion = questionBoard.getNextQuestion(category);
     }
 	
-	public void answerQuestion(boolean correct){
-        int points = currentQuestion.getId() * 100 * (correct ? 1:-1);
+	public void answerQuestion(AnswerOptions result){
+	    int points = 0;
+	    switch (result) {
+            case CORRET:
+                points = currentQuestion.getId() * 100;
+                break;
+            case WRONG:
+                points = currentQuestion.getId() * 100 * -1;
+                break;
+            case TIME_EXPIRED:
+            default:
+                // not points added
+                break;
+        }
         currentPlayer.getRoundScore().addToScore(points);
         currentQuestion = null;
     }
@@ -143,6 +160,9 @@ public class Game {
 
     private void endRound() {
 	    System.out.println("Round is ending.");
+	    players.add(currentPlayer);
+	    currentPlayer = null;
+
         for (Player player: players) {
             player.endRound();
         }
@@ -152,10 +172,9 @@ public class Game {
 	    if (currentRound == Round.ROUND1) {
 	        System.out.println("Moving to round 2");
             currentRound = Round.ROUND2;
+            currentPlayer = players.poll();
         } else {
 	        System.out.println("setting gameOver to true");
-	        players.add(currentPlayer);
-	        currentPlayer = null;
             gameOver = true;
         }
     }
